@@ -1,0 +1,53 @@
+ 1. Análisis de Calificaciones (calificaciones.py)
+ Descripción: 
+
+🔹 Pasos del análisis:
+
+Carga el dataset desde calificaciones.csv y muestra las primeras filas.
+Calcula el promedio de calificaciones por materia usando groupby().
+Identifica al estudiante con el mejor promedio.
+Agrupa las calificaciones por estudiante y calcula su promedio.
+Cuenta cuántos estudiantes tienen un promedio superior a 85.
+Encuentra la materia con más calificaciones registradas.
+Lista los 5 estudiantes con el promedio más bajo.
+ Lógica utilizada:
+
+Se utilizó groupby() para calcular promedios por materia y estudiante.
+Se usó idxmax() para encontrar al estudiante con la mejor calificación.
+Se aplicó nsmallest(5) para listar los 5 estudiantes con menor promedio.
+ Archivo: calificaciones.py
+
+ 2. Análisis del Clima (clima.py)
+ Descripción: 
+
+🔹 Pasos del análisis:
+
+Carga el dataset y muestra las primeras filas.
+Calcula la temperatura promedio de cada ciudad.
+Identifica el registro con la temperatura más alta y más baja.
+Determina qué ciudad tuvo la temperatura más alta y más baja.
+Cuenta cuántos registros tienen una temperatura mayor a 30°C.
+Muestra la cantidad de días registrados por ciudad.
+ Lógica utilizada:
+
+Se empleó groupby() para calcular temperaturas promedio.
+idxmax() e idxmin() se usaron para encontrar registros extremos de temperatura.
+value_counts() permitió contar los días registrados por ciudad.
+🔗 Archivo: clima.py
+
+ 3. Análisis de Ventas (ventas.py)
+ Descripción: Este script analiza datos de ventas de productos.
+
+ Pasos del análisis:
+
+Carga el dataset y muestra las primeras filas.
+Calcula la cantidad total de productos vendidos por categoría.
+Determina cuál es el producto con el mayor total de ventas.
+Encuentra el precio promedio de los productos vendidos.
+ Lógica utilizada:
+
+groupby() se empleó para sumar las cantidades vendidas por categoría.
+Se calculó el total de ventas multiplicando la cantidad por el precio unitario.
+idxmax() ayudó a identificar el producto más vendido.
+Se utilizó mean() para calcular el precio promedio.
+🔗 Archivo: ventas.py
