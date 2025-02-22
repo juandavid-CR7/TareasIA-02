@@ -1,48 +1,49 @@
+# Importar librerías necesarias
 import pandas as pd
 import numpy as np
 from google.colab import files
 
 # Leer el archivo CSV
 
-df = pd.read_csv("clima.csv")
+dfCalificaciones = pd.read_csv("calificaciones.csv")
 
-# Mostrar las primeras filas del DataFrame para verificar la estructura
-print("Primeras filas del DataFrame:")
-print(df.head())
+# Mostrar las columnas disponibles en el dataset para verificar nombres
+print("\n Nombres de las columnas en el archivo CSV:")
+print(dfCalificaciones.columns)
 
-# 1. Convertir el dataset en un DataFrame (ya cargado)
+# Asegurar que el nombre de la columna sea el correcto
+columna_calif = "Calificación" if "Calificación" in dfCalificaciones.columns else "Calificacion"
 
-# 2. Calcular la temperatura promedio de cada ciudad
-tiempoPromedioCiudad = df.groupby("Ciudad")["Temperatura"].mean()
+# 1. Cargar el dataset y mostrar las primeras filas
+print("\n Primeras filas del DataFrame:")
+print(dfCalificaciones.head())
 
-# 3. Determinar el registro con la temperatura más alta y el más bajo en el dataset
-registroTiempoMax = df.loc[df["Temperatura"].idxmax()]
-registroTiempoMin = df.loc[df["Temperatura"].idxmin()]
+# 2. Calcular el promedio de calificaciones por materia
+promedioMateria = dfCalificaciones.groupby("Materia")[columna_calif].mean()
+print("\n Promedio de calificaciones por materia:")
+print(promedioMateria)
 
-# 4. Identificar qué ciudad tuvo la temperatura más alta y cuál la más baja
-ciudad_temp_max = registroTiempoMax["Ciudad"]
-ciudad_temp_min = registroTiempoMin["Ciudad"]
+# 3. Identificar el estudiante con el promedio más alto 
+promedioAlumno = dfCalificaciones.groupby("Estudiante")[columna_calif].mean()
+alumnoMejorPromedio = promedioAlumno.idxmax()
+mejorPromedio = promedioAlumno.max()
 
-# 5. Contar cuántos registros tienen una temperatura mayor a 30°C
-registros_mayor_30 = df[df["Temperatura"] > 30].shape[0]
+print("\n Estudiante con el mejor promedio:")
+print(f"{alumnoMejorPromedio} con un promedio de {mejorPromedio:.2f}")
 
-# 6. Contar cuántos días en total hay registrados por cada ciudad
-dias_por_ciudad = df["Ciudad"].value_counts()
+# 4. Agrupar calificaciones por estudiante y calcular el promedio de cada uno (ya calculado en el paso anterior)
+print("\n Promedio de calificaciones por estudiante:")
+print(promedioAlumno)
 
-# Mostrar los resultados
-print("\nTemperatura promedio por ciudad es :")
-print(tiempoPromedioCiudad)
+# 5. Identificar cuántos estudiantes tienen un promedio de calificaciones superior a 85 
+mejoresAlumnos = (promedioAlumno > 85).sum()
+print(f"\n Número de estudiantes con un promedio mayor a 85: {mejoresAlumnos}")
 
-print("\nRegistro con la temperatura más alta:")
-print(registroTiempoMax)
+# 6. Encontrar la materia con la mayor cantidad de calificaciones registradas 
+materiaConMasCalificaciones = dfCalificaciones["Materia"].value_counts().idxmax()
+print(f"\n Materia con más calificaciones registradas: {materiaConMasCalificaciones}")
 
-print("\nRegistro con la temperatura más baja:")
-print(registroTiempoMin)
-
-print(f"\nCiudad con la temperatura más alta: {ciudad_temp_max}")
-print(f"Ciudad con la temperatura más baja: {ciudad_temp_min}")
-
-print(f"\nNúmero de registros con temperatura mayor a 30°C: {registros_mayor_30}")
-
-print("\nCantidad de días registrados por cada ciudad:")
-print(dias_por_ciudad)
+# 7. Mostrar los 5 estudiantes con el promedio más bajo 
+peoresAlumnos = promedioAlumno.nsmallest(5)
+print("\n Los 5 estudiantes con el promedio más bajo:")
+print(peoresAlumnos)
